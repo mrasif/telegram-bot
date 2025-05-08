@@ -21,3 +21,23 @@ To deploy the Telegram bot, follow these steps:
 
 3. **Domain**:
    - Need to attach public domain.
+
+
+## Docker compose based deployment
+
+- Create `docker-compose.yaml`
+
+```yaml
+version: "3.8"
+services:
+  telegram:
+    image: ghcr.io/mrasif/telegram-bot
+    container_name: telegram-bot
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - 3000:3000
+networks: {}
+```
+
+- Run `docker-compose up -d`
