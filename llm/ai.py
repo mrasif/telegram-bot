@@ -20,6 +20,7 @@ def chat(text: str, uid: str) -> str:
     	model=config.LLM_MODEL_NAME,
      	messages=messages,
       	tools=agent.getTools(),
+       	tool_choice = "auto",
     )
 
     if response.choices[0].finish_reason=="tool_calls":
