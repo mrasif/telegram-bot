@@ -31,10 +31,11 @@ def handle_tool_call(message):
         }
         return response
 
+
 def getTools():
 	time_function = {
 	    "name": "get_current_time",
-	    "description": "Get the current time. Call this whenever you need to know the current time or date, for example when a user asked 'What is time right now? or 'What is today's date?'. Response with 12 hours format.",
+	    "description": "Get the current time. Call this whenever you need to know the current time or date, for example when a user asked 'What is time right now? or 'What is today's date?'.",
 	    "parameters": {
 	        "type": "object",
 	        "properties": {},
@@ -45,13 +46,13 @@ def getTools():
 
 	weather_function = {
 	    "name": "get_weather",
-	    "description": "Get the weather details. Call this whenever you need to know the weather for a city, for example when a user asked 'How is weather now?', If you don't know the city name then ask user for city name. Always convert temperature to Celcius.",
+	    "description": "Get the weather details. Call this whenever you need to know the weather for a city, for example when a user asked 'How is weather now?'",
 	    "parameters": {
 	        "type": "object",
 	        "properties": {
 	            "city": {
 	                "type": "string",
-	                "description": "The name of the city you want to know about"
+	                "description": "The name of the city (e.g., 'Paris', 'New York'). Do not repeat it."
 	            }
 	        },
 	        "required": ["city"],
@@ -59,7 +60,10 @@ def getTools():
 	    }
 	}
 
-	tools = [{"type": "function", "function": time_function}, {"type": "function", "function": weather_function}]
+	tools = [
+		{"type": "function", "function": time_function},
+		{"type": "function", "function": weather_function},
+	]
 	return tools
 
 def get_current_time():
