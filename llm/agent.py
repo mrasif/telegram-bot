@@ -2,6 +2,13 @@ import os
 import json
 import time
 import requests
+import logging
+
+# Set up basic logging
+logging.basicConfig(
+    level=logging.INFO,  # or DEBUG, WARNING, ERROR
+    format='%(asctime)s %(levelname)s: %(message)s',
+)
 
 def handle_tool_call(message):
     tool_call = message.tool_calls[0]
@@ -56,13 +63,13 @@ def getTools():
 	return tools
 
 def get_current_time():
-    print("Tool get_current_time called.")
-    os.environ['TZ'] = 'Asia/Dubai'
-    time.tzset()
-    return time.strftime("%Y-%m-%d %H:%M:%S")
+	logging.info("Tool get_current_time called.")
+	os.environ['TZ'] = 'Asia/Dubai'
+	time.tzset()
+	return time.strftime("%Y-%m-%d %H:%M:%S")
 
 def get_weather(city):
-    print(f"Tool get_weather called for location {city}.")
+    logging.info(f"Tool get_weather called for location {city}.")
     base_url = "https://wttr.in/"+city
     params = {
         'format': 'j1',
