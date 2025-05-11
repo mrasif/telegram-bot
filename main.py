@@ -1,8 +1,9 @@
 import time
 import telebot
+import atexit
 from flask import Flask, jsonify, request
 from settings import config
-from llm import ai
+from llm import ai, kb
 
 bot = telebot.TeleBot(config.TELEGRAM_TOKEN, threaded = False, skip_pending = True)
 webhook_info = bot.get_webhook_info()
@@ -39,7 +40,7 @@ def echo(m):
     if m.from_user.id not in config.ALLOWED_USERS:
         bot.send_message(m.chat.id, f"Access denied. Your id is: {m.from_user.id}")
         return
-    res = ai.chat(m.text)
+    res = ai.chat(m.text, str(m.from_user.id))
     bot.send_message(m.chat.id, res)
 
 @bot.message_handler(content_types = ['photo'])
@@ -55,9 +56,11 @@ def ping():
     return jsonify({"message": "Server is running."})
 
 
+atexit.register(kb.save_kb)
 
 if __name__ == '__main__':
-    app.run(
+	kb.load_kb()
+	app.run(
         host=config.BIND_HOST,
         port=config.BIND_PORT,
         debug=True,

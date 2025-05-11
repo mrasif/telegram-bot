@@ -12,9 +12,9 @@ system_message += "Give short, courteous answers, no more than 1 sentence."
 system_message += "When some one ask about jokes, math calculation solve that."
 system_message += "Always be accurate. If you don't know the answer, say so."
 
-def chat(text: str) -> str:
-    history= kb.getHistory()
-    kb.forUser(text)
+def chat(text: str, uid: str) -> str:
+    history= kb.getHistory(uid)
+    kb.forUser(text, uid)
     messages = [{"role": "system", "content": system_message}] + history + [{"role": "user", "content": text}]
     response = openai.chat.completions.create(
     	model=config.LLM_MODEL_NAME,
@@ -34,5 +34,5 @@ def chat(text: str) -> str:
 
     res = response.choices[0].message.content or ""
     if len(res)>0:
-        kb.forAssistant(res)
+        kb.forAssistant(res, uid)
     return res
