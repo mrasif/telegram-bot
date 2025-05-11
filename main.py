@@ -23,21 +23,21 @@ def webhook():
 @bot.message_handler(commands = ['start'])
 def start(m):
     if m.from_user.id not in config.ALLOWED_USERS:
-        bot.send_message(m.chat.id, "Access denied.")
+        bot.send_message(m.chat.id, f"Access denied. Your id is: {m.from_user.id}")
         return
     bot.send_message(m.chat.id, 'Hello, welcome to test')
 
 @bot.message_handler(commands = ['help'])
 def help(m):
     if m.from_user.id not in config.ALLOWED_USERS:
-        bot.send_message(m.chat.id, "Access denied.")
+        bot.send_message(m.chat.id, f"Access denied. Your id is: {m.from_user.id}")
         return
     bot.send_message(m.chat.id, 'Contact admin.')
 
 @bot.message_handler(content_types = ['text'])
 def echo(m):
     if m.from_user.id not in config.ALLOWED_USERS:
-        bot.send_message(m.chat.id, "Access denied.")
+        bot.send_message(m.chat.id, f"Access denied. Your id is: {m.from_user.id}")
         return
     res = ai.chat(m.text)
     bot.send_message(m.chat.id, res)
@@ -45,7 +45,7 @@ def echo(m):
 @bot.message_handler(content_types = ['photo'])
 def photo(m):
     if m.from_user.id not in config.ALLOWED_USERS:
-        bot.send_message(m.chat.id, "Access denied.")
+        bot.send_message(m.chat.id, f"Access denied. Your id is: {m.from_user.id}")
         return
     bot.send_message(m.chat.id, 'Nice photo!')
 
