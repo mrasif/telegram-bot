@@ -27,7 +27,7 @@ def handle_tool_call(message):
 def getTools():
 	time_function = {
 	    "name": "get_current_time",
-	    "description": "Get the current time. Call this whenever you need to know the current time or date, for example when a user asked 'What is time right now? or 'What is today's date?'",
+	    "description": "Get the current time. Call this whenever you need to know the current time or date, for example when a user asked 'What is time right now? or 'What is today's date?'. Response with 12 hours format.",
 	    "parameters": {
 	        "type": "object",
 	        "properties": {},
@@ -38,7 +38,7 @@ def getTools():
 
 	weather_function = {
 	    "name": "get_weather",
-	    "description": "Get the weather details. Call this whenever you need to know the weather for a city, for example when a user asked 'How is weather now?', If you don't know the city name then ask user for city name.",
+	    "description": "Get the weather details. Call this whenever you need to know the weather for a city, for example when a user asked 'How is weather now?', If you don't know the city name then ask user for city name. Always convert temperature to Celcius.",
 	    "parameters": {
 	        "type": "object",
 	        "properties": {
